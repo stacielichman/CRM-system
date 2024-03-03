@@ -1,0 +1,32 @@
+{% extends 'app/base.html' %}
+
+{% block title %}
+    Данные клиента
+{% endblock %}
+
+{% block body %}
+    <div>
+        <p>Клиент<strong>
+        {{ client.surname }}
+        {{ client.name }}
+        {{ client.middle_name|default_if_none:"" }}</strong></p>
+    </div>
+    <div>
+        <div>Номер телефона: <strong>{{ client.phone_num }}</strong></div>
+    </div>
+    <div>
+        <div>Email-адрес: <strong>{{ client.email }}</strong></div>
+    </div>
+    <div>
+        <div>Рекламная кампания: <strong>{{ client.advert.name }}</strong></div>
+    </div>
+    <div>
+        <a href="{% url 'app:update_potential' pk=client.pk %}">Редактировать клиента</a>
+    </div>
+    <div>
+        <a href="{% url 'app:delete_client' pk=client.pk %}">Удалить клиента</a>
+    </div>
+    <div>
+        <a href="{% url 'app:potential_list' %}">Вернуться к списку потенциальных клиентов</a>
+    </div>
+{% endblock %}

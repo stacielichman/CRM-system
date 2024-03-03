@@ -1,0 +1,21 @@
+{% extends 'app/base.html' %}
+
+{% block title %}
+    Удаление {{ object.name }}
+{% endblock %}
+
+{% block body %}
+    <h1>Вы уверены, что хотите удалить услугу {{ object.name }}?</h1>
+    <div>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Удалить</button>
+        </form>
+    </div>
+    <br>
+    <div>
+        <a href="{% url 'app:service_details' pk=object.pk %}"
+           >Вернуться к услуге</a>
+    </div>
+{% endblock %}

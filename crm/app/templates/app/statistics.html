@@ -1,0 +1,40 @@
+{% extends 'app/base.html' %}
+{% load client_extras %}
+
+{% block title %}
+    Статистика
+{% endblock %}
+
+{% block body %}
+    <h1>Статистика:</h1>
+    {% if object_list.advert_client %}
+    <div>
+        {% for advert in object_list.advert_client %}
+        <div>
+            Рекламная кампания <strong>"{{ advert.name }}"</strong>
+            привлекла <strong> {{ advert.client_cnt }} {{ advert.client_cnt|ru_plural:"клиента, клиентов" }}</strong>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <h3>Пока статистики нет</h3>
+    {% endif %}
+
+    {% if object_list.client %}
+    <div>
+        <p>Число клиентов, перешедших из потенциальных в активных: {{ object_list.client }}</p>
+    </div>
+    {% endif %}
+
+    {% if object_list.contract %}
+    <div>
+        <p>Доход от контрактов: <strong>{{ object_list.contract.price__sum|default_if_none:"0.00" }}</strong></p>
+    </div>
+    {% endif %}
+
+    {% if object_list.advert %}
+    <div>
+        <p>Расходы на рекламу: <strong>{{ object_list.advert.budget__sum }}</strong></p>
+    </div>
+    {% endif %}
+{% endblock %}

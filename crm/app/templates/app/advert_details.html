@@ -1,0 +1,27 @@
+{% extends 'app/base.html' %}
+
+{% block title %}
+    Кампания {{ advert.name }}
+{% endblock %}
+
+{% block body %}
+    <h1>Кампания <strong>{{ advert.name }}</strong></h1>
+    <div>
+        <div>Описание: <em>{{ advert.description }}</em></div>
+    </div>
+    <div>
+        <div>Канал продвижения: <em>{{ advert.channel }}</em></div>
+    </div>
+    <div>
+        <div>Бюджет: <em>{{ advert.budget }}</em></div>
+    </div>
+    <div>
+        <a href="{% url 'app:update_advert' pk=advert.pk %}">Редактировать кампанию</a>
+    </div>
+    <div>
+        <a href="{% url 'app:delete_advert' pk=advert.pk %}">Удалить кампанию</a>
+    </div>
+    <div>
+        <a href="{% url 'app:adverts_list' %}">Вернуться к списку кампаний</a>
+    </div>
+{% endblock %}

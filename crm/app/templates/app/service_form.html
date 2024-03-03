@@ -1,0 +1,23 @@
+{% extends 'app/base.html' %}
+
+{% block title %}
+    Создать услугу
+{% endblock %}
+
+{% block body %}
+<h1>Создать новую услугу</h1>
+<div>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">
+            Создать
+        </button>
+    </form>
+</div>
+
+<div>
+    <a href="{% url 'app:services_list' %}">
+    >Вернуться к списку услуг </a>
+</div>
+{% endblock %}

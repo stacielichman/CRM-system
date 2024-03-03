@@ -1,0 +1,33 @@
+{% extends 'app/base.html' %}
+
+{% block title %}
+    Список услуг
+{% endblock %}
+
+{% block body %}
+    <h1>Услуги:</h1>
+    {% if services %}
+
+    <div>
+        {% for service in services %}
+        <div>
+            <p><a href="{% url 'app:service_details' pk=service.pk %}"
+            >{{ service.name }}</a></p>
+        </div>
+        <div>
+            <p><a href="{% url 'app:delete_service' pk=service.pk %}">
+           <button>Удалить</button></a></p>
+        </div>
+    </div>
+    {% endfor %}
+
+    {% else %}
+    <h3>Пока услуг нет</h3>
+    {% endif %}
+
+    <div>
+        <a href="{% url 'app:create_service' %}"
+        >Создать новую услугу</a>
+    </div>
+
+{% endblock %}

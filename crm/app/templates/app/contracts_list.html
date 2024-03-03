@@ -1,0 +1,33 @@
+{% extends 'app/base.html' %}
+
+{% block title %}
+    Список контрактов
+{% endblock %}
+
+{% block body %}
+    <h1>Контракты:</h1>
+    {% if contracts %}
+
+    <div>
+        {% for contract in contracts %}
+        <div>
+            <p><a href="{% url 'app:contract_details' pk=contract.pk %}"
+            >{{ contract.name }}</a></p>
+        </div>
+        <div>
+            <p><a href="{% url 'app:delete_contract' pk=contract.pk %}">
+           <button>Удалить</button></a></p>
+        </div>
+    </div>
+    {% endfor %}
+
+    {% else %}
+    <h3>Пока контрактов нет</h3>
+    {% endif %}
+
+    <div>
+        <a href="{% url 'app:create_contract' %}"
+        >Создать новый контракт</a>
+    </div>
+
+{% endblock %}

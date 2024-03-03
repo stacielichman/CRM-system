@@ -1,0 +1,33 @@
+{% extends 'app/base.html' %}
+
+{% block title %}
+    Список кампаний
+{% endblock %}
+
+{% block body %}
+    <h1>Кампании:</h1>
+    {% if adverts %}
+
+    <div>
+        {% for advert in adverts %}
+        <div>
+            <p><a href="{% url 'app:advert_details' pk=advert.pk %}"
+            >{{ advert.name }}</a></p>
+        </div>
+        <div>
+            <p><a href="{% url 'app:delete_advert' pk=advert.pk %}">
+           <button>Удалить</button></a></p>
+        </div>
+    </div>
+    {% endfor %}
+
+    {% else %}
+    <h3>Пока кампаний нет</h3>
+    {% endif %}
+
+    <div>
+        <a href="{% url 'app:create_advert' %}"
+        >Создать новую кампанию</a>
+    </div>
+
+{% endblock %}

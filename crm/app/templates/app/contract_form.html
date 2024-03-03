@@ -1,0 +1,23 @@
+{% extends 'app/base.html' %}
+
+{% block title %}
+    Создать контракт
+{% endblock %}
+
+{% block body %}
+<h1>Создать новый контракт</h1>
+<div>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">
+            Создать
+        </button>
+    </form>
+</div>
+
+<div>
+    <a href="{% url 'app:contracts_list' %}">
+    >Вернуться к списку контрактов </a>
+</div>
+{% endblock %}

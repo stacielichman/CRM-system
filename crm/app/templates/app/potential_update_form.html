@@ -1,0 +1,23 @@
+{% extends 'app/base.html' %}
+
+{% block title %}
+    Добавить клиента
+{% endblock %}
+
+{% block body %}
+<h1>Добавить нового клиента</h1>
+<div>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">
+            Создать
+        </button>
+    </form>
+</div>
+
+<div>
+    <a href="{% url 'app:active_list' %}">
+    >Вернуться к списку клиентов </a>
+</div>
+{% endblock %}

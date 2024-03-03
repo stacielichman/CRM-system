@@ -1,0 +1,23 @@
+{% extends 'app/base.html' %}
+
+{% block title %}
+    Создать кампанию
+{% endblock %}
+
+{% block body %}
+<h1>Создать новую кампанию</h1>
+<div>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">
+            Создать
+        </button>
+    </form>
+</div>
+
+<div>
+    <a href="{% url 'app:adverts_list' %}">
+    >Вернуться к списку кампаний </a>
+</div>
+{% endblock %}

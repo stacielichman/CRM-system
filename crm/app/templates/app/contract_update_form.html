@@ -1,0 +1,22 @@
+{% extends "app/base.html" %}
+
+{% block title %}
+    Редактор
+{% endblock %}
+
+{% block body %}
+    <h1>Редактировать контракт</h1>
+    <div>
+        <form method="post">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button type="submit">
+                Изменить
+            </button>
+        </form>
+    </div>
+    <div>
+        <a href="{% url 'app:contract_details' pk=object.pk %}">
+        >Вернуться к описанию контракта </a>
+    </div>
+{% endblock %}

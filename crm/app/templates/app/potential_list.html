@@ -1,0 +1,33 @@
+{% extends 'app/base.html' %}
+
+{% block title %}
+    Клиенты
+{% endblock %}
+
+{% block body %}
+    <h1>Список потенциальных клиентов:</h1>
+    {% if object_list %}
+
+    <div>
+        {% for client in object_list %}
+        <div>
+            <p><a href="{% url 'app:potential_details' pk=client.pk %}"
+            >{{ client.surname }} {{ client.name }} {{ client.middle_name|default_if_none:"" }}</a></p>
+        </div>
+        <div>
+            <p><a href="{% url 'app:confirm_active' pk=client.pk %}">
+           Перевести в активный статус</a></p>
+        </div>
+    </div>
+    {% endfor %}
+
+    {% else %}
+    <h3>Пока клиентов нет</h3>
+    {% endif %}
+
+    <div>
+        <a href="{% url 'app:potential_create' %}"
+        >Добавить нового потенциального клиента</a>
+    </div>
+
+{% endblock %}

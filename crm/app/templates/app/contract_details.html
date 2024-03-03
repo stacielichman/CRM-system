@@ -1,0 +1,33 @@
+{% extends 'app/base.html' %}
+
+{% block title %}
+    Контракты {{ contract.name }}
+{% endblock %}
+
+{% block body %}
+    <h1>Контракт <strong>{{ contract.name }}</strong></h1>
+    <div>
+        <div>Описание: <em>{{ contract.description }}</em></div>
+    </div>
+    <div>
+        <div>Документ: <em>{{ contract.document }}</em></div>
+    </div>
+    <div>
+        <div>Создан: <em>{{ contract.created_at }}</em></div>
+    </div>
+    <div>
+        <div>Действителен <em>{{ contract.validity_period }}</em> дней</div>
+    </div>
+    <div>
+        <div>Цена: <em>{{ contract.price }}</em></div>
+    </div>
+    <div>
+        <a href="{% url 'app:update_contract' pk=contract.pk %}">Редактировать контракт</a>
+    </div>
+    <div>
+        <a href="{% url 'app:delete_contract' pk=contract.pk %}">Удалить контракт</a>
+    </div>
+    <div>
+        <a href="{% url 'app:contracts_list' %}">Вернуться к списку контрактов</a>
+    </div>
+{% endblock %}

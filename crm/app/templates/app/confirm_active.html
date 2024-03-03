@@ -1,0 +1,21 @@
+{% extends 'app/base.html' %}
+
+{% block title %}
+    Изменить статус {{ object.name }}
+{% endblock %}
+
+{% block body %}
+    <h1>Вы уверены что хотите изменить статус {{ object.surname }}
+      {{ object.name }} {{ object.middle_name }} на активный?</h1>
+    <div>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Изменить статус</button>
+        </form>
+    </div>
+    <div>
+        <a href="{% url 'app:potential_list' %}"
+           >Вернуться к списку потенциальных клиентов</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'contracts/base.html' %}
+
+{% block title %}
+    Удаление {{ object.name }}
+{% endblock %}
+
+{% block body %}
+    <h1>Вы уверены, что хотите удалить рекламную кампанию {{ object.name }}?</h1>
+    <div>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Удалить</button>
+        </form>
+    </div>
+    <br>
+    <div>
+        <a href="{% url 'app:advert_details' pk=object.pk %}"
+           >Вернуться к кампании</a>
+    </div>
+{% endblock %}
