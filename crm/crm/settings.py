@@ -13,6 +13,7 @@ import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+import sentry_sdk
 from dotenv import load_dotenv
 from django.utils.translation import gettext_lazy as _
 
@@ -141,3 +142,9 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+sentry_sdk.init(
+    dsn="https://f4e326384f8ca72c80a09ff815887a00@o4506019603283968.ingest.us.sentry.io/4506899699597312",
+    traces_sample_rate=1.0,
+    profiles_sample_rate=1.0,
+)

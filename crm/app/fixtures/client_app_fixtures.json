@@ -1,0 +1,1 @@
+[{"model": "app.client", "pk": 4, "fields": {"name": "Boris", "surname": "Petrov", "middle_name": null, "phone_num": "+56372", "email": "dhsj@dkd", "advert": null, "active": false, "contract": null}}]

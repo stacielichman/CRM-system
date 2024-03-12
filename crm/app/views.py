@@ -9,7 +9,7 @@ from django.views.generic import CreateView, DetailView, UpdateView, ListView, D
 from .models import Advert, Contract, Service, Client
 
 
-class AdvertsListView(ListView):
+class AdvertsListView(UserPassesTestMixin, ListView):
     def test_func(self):
         return self.request.user.groups\
                    .filter(name="marketer")\
@@ -20,7 +20,7 @@ class AdvertsListView(ListView):
     queryset = Advert.objects.values("pk", "name").all()
 
 
-class AdvertDetailView(DetailView):
+class AdvertDetailView(UserPassesTestMixin, DetailView):
     def test_func(self):
         return self.request.user.groups\
                    .filter(name="marketer")\
@@ -31,7 +31,7 @@ class AdvertDetailView(DetailView):
     context_object_name = "advert"
 
 
-class AdvertCreateView(CreateView):
+class AdvertCreateView(UserPassesTestMixin, CreateView):
     def test_func(self):
         return self.request.user.groups\
                    .filter(name="marketer")\
@@ -42,7 +42,7 @@ class AdvertCreateView(CreateView):
     success_url = reverse_lazy("app:adverts_list")
 
 
-class AdvertUpdateView(UpdateView):
+class AdvertUpdateView(UserPassesTestMixin, UpdateView):
     def test_func(self):
         return self.request.user.groups\
                    .filter(name="marketer")\
@@ -65,7 +65,7 @@ class AdvertDeleteView(DeleteView):
     template_name = "app/confirm_advert_delete.html"
 
 
-class ContractsListView(ListView):
+class ContractsListView(UserPassesTestMixin, ListView):
     def test_func(self):
         return self.request.user.groups\
                    .filter(name="manager")\
@@ -76,7 +76,7 @@ class ContractsListView(ListView):
     queryset = Contract.objects.values("pk", "name").all()
 
 
-class ContractDetailView(DetailView):
+class ContractDetailView(UserPassesTestMixin, DetailView):
     def test_func(self):
         return self.request.user.groups\
                    .filter(name="manager")\
@@ -87,25 +87,18 @@ class ContractDetailView(DetailView):
     context_object_name = "contract"
 
 
-class ContractCreateView(CreateView):
+class ContractCreateView(UserPassesTestMixin, CreateView):
     def test_func(self):
         return self.request.user.groups\
                    .filter(name="manager")\
                    .exists() \
                or self.request.user.is_superuser
     model = Contract
-    fields = [
-        "name",
-        "description",
-        "document",
-        "created_at",
-        "validity_period",
-        "price"
-    ]
+    fields = "name", "description", "document", "created_at", "validity_period", "price"
     success_url = reverse_lazy("app:contracts_list")
 
 
-class ContractUpdateView(UpdateView):
+class ContractUpdateView(UserPassesTestMixin, UpdateView):
     def test_func(self):
         return self.request.user.groups\
                    .filter(name="manager")\
@@ -128,7 +121,7 @@ class ContractDeleteView(DeleteView):
     template_name = "contracts/confirm_contract_delete.html"
 
 
-class ServicesListView(ListView):
+class ServicesListView(UserPassesTestMixin, ListView):
     def test_func(self):
         return self.request.user.groups\
                    .filter(name="marketer")\
@@ -139,7 +132,7 @@ class ServicesListView(ListView):
     queryset = Service.objects.values("pk", "name").all()
 
 
-class ServiceDetailView(DetailView):
+class ServiceDetailView(UserPassesTestMixin, DetailView):
     def test_func(self):
         return self.request.user.groups\
                    .filter(name="marketer")\
@@ -150,7 +143,7 @@ class ServiceDetailView(DetailView):
     context_object_name = "service"
 
 
-class ServiceCreateView(CreateView):
+class ServiceCreateView(UserPassesTestMixin, CreateView):
     def test_func(self):
         return self.request.user.groups\
                    .filter(name="marketer")\
@@ -161,7 +154,7 @@ class ServiceCreateView(CreateView):
     success_url = reverse_lazy("app:services_list")
 
 
-class ServiceUpdateView(UpdateView):
+class ServiceUpdateView(UserPassesTestMixin, UpdateView):
     def test_func(self):
         return self.request.user.groups\
                    .filter(name="marketer")\
@@ -200,7 +193,7 @@ class PotentialClientListView(UserPassesTestMixin, ListView):
     context_object_name = "clients"
 
 
-class PotentialClientCreateView(CreateView):
+class PotentialClientCreateView(UserPassesTestMixin, CreateView):
     def test_func(self):
         return self.request.user.groups\
                    .filter(name="operator")\
@@ -218,7 +211,7 @@ class PotentialClientCreateView(CreateView):
     success_url = reverse_lazy("app:potential_list")
 
 
-class PotentialClientDetailView(DetailView):
+class PotentialClientDetailView(UserPassesTestMixin, DetailView):
     def test_func(self):
         return self.request.user.groups\
                    .filter(name="operator")\
@@ -230,7 +223,7 @@ class PotentialClientDetailView(DetailView):
     context_object_name = "client"
 
 
-class PotentialClientUpdateView(UpdateView):
+class PotentialClientUpdateView(UserPassesTestMixin, UpdateView):
     def test_func(self):
         return self.request.user.groups\
                    .filter(name="operator")\
@@ -254,7 +247,7 @@ class PotentialClientUpdateView(UpdateView):
         )
 
 
-class MakeClientActiveView(UpdateView):
+class MakeClientActiveView(UserPassesTestMixin, UpdateView):
     def test_func(self):
         return self.request.user.groups\
                    .filter(name="manager")\
@@ -279,6 +272,7 @@ class ActiveClientListView(ListView):
         .values("pk", "name", "surname", "middle_name")
         .filter(active=True)
     )
+    context_object_name = "clients"
 
 
 class ActiveClientCreateView(CreateView):

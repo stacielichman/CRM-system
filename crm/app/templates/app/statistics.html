@@ -34,7 +34,7 @@
 
     {% if object_list.advert %}
     <div>
-        <p>Расходы на рекламу: <strong>{{ object_list.advert.budget__sum }}</strong></p>
+        <p>Расходы на рекламу: <strong>{{ object_list.advert.budget__sum|default_if_none:"0" }}</strong></p>
     </div>
     {% endif %}
 {% endblock %}
